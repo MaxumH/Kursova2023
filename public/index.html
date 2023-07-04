@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="bg.css">
+    <link rel="stylesheet" href="buttons.css">
+    <link rel="stylesheet" href="menu.css">
+    <link rel="stylesheet" href="modal.css">
+    <link rel="stylesheet" href="workmenu.css">
+    <link rel="stylesheet" href="item.css">
+    <title>Принтери</title>
+</head>
+<body>
+<form name="productForm" action="/products" method="POST" id="modalform" enctype="multipart/form-data">
+    <div class="conteinar" id="modalcont">
+        <div class="head">
+            <p class="text-h">
+               Створити принтери
+            </p>
+            <div class="btn-grid">
+                <input type="submit" value="X" id="btn-close" onclick="event.preventDefault(); Modaleclose()">
+            </div>
+        </div>
+        <div class="center">
+            <input type="hidden" name="productId" id="productId">
+                <input type="hidden" name="oldCloudinaryPublicId" id="oldCloudinaryPublicId">
+                <input type="hidden" name="oldImagePath" id="oldImagePath">
+            <p class="text-p">
+                Модель принтера:
+            </p>
+            <input class="text-field" id="js-input-model" maxlength="50" name="productName" placeholder="Введіть модель Принтера" type="text">
+            <p class="text-p">
+                Модель Технологія друкуа:
+            </p>
+            <select class="text-field" id="js-proc" maxlength="30" name="producttechno">
+                <option value="Лазерний друк">Лазерний друк</option>
+                <option value="Струменевий друк">Струменевий друк</option>
+            </select>
+                <p class="text-p">
+                Максимальний формат паперу:
+            </p>
+            <select class="text-field" id="js-op"  name="productformat">
+                <option value="А4">А4</option>
+                <option value="А3">А3</option>
+            </select>
+                <p class="text-p">
+                Швидкість друку ст/хв:
+            </p>
+            <select class="text-field" id="js-lan" name="productspeed">
+                <option value="18 ст/хв">18 ст/хв</option>
+                <option value="24 ст/хв">24 ст/хв</option>
+                <option value="30 ст/хв">30 ст/хв</option>
+            </select>
+            <p class="text-p">
+                Ресурс:
+            </p>
+            <select name="productresurs" id="js-disk" class="select-t">
+                <option value="2000">2000</option>
+                <option value="2500">2500</option>
+                <option value="3000">3000</option>
+                <option value="3500">3500</option>
+                <option value="4000">4000</option>
+            </select>
+            <p class="text-p" style="padding-bottom: 10px;">
+                Виберіть файл зображення:
+            </p>
+            <input class="file" name="productImage" type="file" id="productImage" accept=".jpeg, .jpg, .png">
+            <button type="submit" id="submitBtn" onclick="modalpush(); event.preventDefault();" value="Confirm" class="buttonedit">Confirm</button>
+        </div>
+    </div>
+</form>
+<div class="grey" onclick="Modaleclose();" id="greybg"></div>
+    <div class="menu">
+        <div class="nameshop">
+            <b>Принтер Шоп</b>
+        </div>
+                <div class="search"><input type="search" class="searchfield" placeholder="Search your Printer"/></div>
+                <div class="green"><button class="green-button">Search</button></div>
+    </div>
+    <div class="workmenu">
+        <div class="Manage-nas"><b>Manage Printer</b></div>
+        <div>
+            <button type="submit" class="create-button" onclick="Modaleshow()">Create</button>
+        </div>
+        <div class="switch-elements">
+            <div class="sort-text">
+                <b>Sort by format</b>
+            </div>
+            <div>
+                <div class="switch-div">
+            <label class="switch">
+                <input type="checkbox" id="sortcheckbox">
+                <span class="slider round"></span>
+            </label>
+        </div>
+    </div>
+    </div>
+    </div>
+    <div class="dataContainer">
+    </div>
+     <script src="buttons.js"></script>
+     <script src="valid.js"></script>
+     <script src="forminput.js"></script>
+</body>
+</html>
