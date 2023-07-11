@@ -24,7 +24,7 @@ function getAndShowAllProducts() {
   let sortedProducts = [...products]; 
   const sortCheckbox = document.getElementById("sortcheckbox");
   if (sortCheckbox.checked) {
-    sortedProducts.sort((a, b) => a.productresurs - b.productresurs);
+    sortedProducts.sort((a, b) => a.productDiagonal - b.productDiagonal);
   }
   const dataContainer = document.querySelector(".dataContainer");
   dataContainer.innerHTML = "";
@@ -35,13 +35,13 @@ function getAndShowAllProducts() {
       <div class="element-data">
         <img src="${product.productImage}" class="element-img">
         <div class="element-name">${product.productName}</div>
-        <p class="element-text">Технологія друку: <span class="element-volume">${product.producttechno}</span></p> 
-        <p class="element-text">Максимальний формат паперу: <span class="element-material">${product.productformat}</span></p>
-        <p class="element-text">Швидкість друку: <span class="element-material">${product.productspeed}</span></p> 
-        <p class="element-text">Ресурс картриджа: <span class="element-material">${product.productresurs}</span></p>  
+        <p class="element-text">Діагональ: <span class="element-volume">${product.productDiagonal}</span></p> 
+        <p class="element-text">Розмір матриці: <span class="element-material">${product.productMatrix}</span></p>
+        <p class="element-text">Формат зображення: <span class="element-material">${product.productFormat}</span></p> 
+        <p class="element-text">Інтерфейс: <span class="element-material">${product.productInterf}</span></p>  
       </div>
       <div class="element-footer">
-        <button class="edit-button" onclick="modifyModalToEdit('${product._id}', '${product.productName}', '${product.producttechno}', '${product.productformat}', '${product.productspeed}', '${product.productresurs}', '${product.productImage}', '${product.cloudinaryPublicId}')">Edit</button><span> </span>
+        <button class="edit-button" onclick="modifyModalToEdit('${product._id}', '${product.productName}', '${product.productDiagonal}', '${product.productFormat}', '${product.productMatrix}', '${product.productInterf}', '${product.productImage}', '${product.cloudinaryPublicId}')">Edit</button><span> </span>
         <button class="delete-button" onclick="removeProduct('${product._id}', '${product.cloudinaryPublicId}')">Delete</button>
       </div>
     `;
@@ -95,19 +95,26 @@ async function removeProduct(_id, cloudinaryPublicId) {
 }
 let editProductId = "";
 let editProductName = "";
+
 let editproducttechno = "";
 let editproductformat = "";
 let editproductspeed = "";
 let editproductresurs = "";
+
+let editproductInterf = "";
+let editproductFormat = "";
+let editproductMatrix = "";
+let editproductDiagonal = "";
+
 let editProductImage = "";
 let editCloudinaryPublicId = "";
-function modifyModalToEdit(_id, productName, producttechno, productformat, productspeed, productresurs, productImage, cloudinaryPublicId) {
+function modifyModalToEdit(_id, productName, productDiagonal, productFormat, productMatrix, productInterf, productImage, cloudinaryPublicId) {
   editProductId = _id;
   editProductName = productName;
-  editproducttechno = producttechno;
-  editproductformat = productformat;
-  editproductspeed = productspeed;
-  editproductresurs = productresurs;
+  editproducttechno = productDiagonal;
+  editproductformat = productFormat;
+  editproductspeed = productMatrix;
+  editproductresurs = productInterf;
   editProductImage = productImage;
   editCloudinaryPublicId = cloudinaryPublicId;
   document.getElementById("modalcont").style.display = "block";
@@ -116,10 +123,10 @@ function modifyModalToEdit(_id, productName, producttechno, productformat, produ
   document.getElementById("submitBtn").innerText = "Update";
   document.getElementById('productImage').setAttribute("src", productImage);
   document.getElementById("js-input-model").value = productName;
-  document.getElementById("js-proc").value = producttechno;
-  document.getElementById("js-op").value = productformat;
-  document.getElementById("js-lan").value = productspeed;
-  document.getElementById("js-disk").value = productresurs;
+  document.getElementById("js-proc").value = productDiagonal;
+  document.getElementById("js-op").value = productMatrix;
+  document.getElementById("js-lan").value = productFormat;
+  document.getElementById("js-disk").value = productInterf;
   document.getElementById("productId").value = _id;
   document.getElementById('oldImagePath').value = productImage;
   document.getElementById("oldCloudinaryPublicId").value = cloudinaryPublicId;
@@ -131,10 +138,10 @@ async function updateProduct() {
   const updatedProduct = {
     _id: editProductId,
     productName: editProductName,
-    producttechno: editproducttechno,
-    productformat: editproductformat,
-    productspeed: editproductspeed,
-    productresurs: editproductresurs,
+    productInterf: editproductInterf,
+    productFormat: editproductFormat,
+    productMatrix: editproductMatrix,
+    productDiagonal: editproductDiagonal,
     productImage: editProductImage,
     cloudinaryPublicId: editCloudinaryPublicId,
   };
@@ -167,19 +174,19 @@ function handleSearch() {
       let productCard = document.createElement("div");
       productCard.classList.add("element");
       productCard.innerHTML = `
-        <div class="element-data">
-          <img src="${product.productImage}" class="element-img">
-          <div class="element-name">${product.productName}</div>
-          <p class="element-text">Технологія друку: <span class="element-volume">${product.producttechno}</span></p> 
-          <p class="element-text">Максимальний формат паперу: <span class="element-material">${product.productformat}</span></p>
-          <p class="element-text">Швидкість друку: <span class="element-material">${product.productspeed}</span></p> 
-          <p class="element-text">Ресурс картриджа: <span class="element-material">${product.productresurs}</span></p>  
-        </div>
-        <div class="element-footer">
-          <button class="edit-button" onclick="modifyModalToEdit('${product._id}', '${product.productName}', '${product.producttechno}', '${product.productformat}', '${product.productspeed}', '${product.productresurs}', '${product.productImage}', '${product.cloudinaryPublicId}')">Edit</button><span> </span>
-          <button class="delete-button" onclick="removeProduct('${product._id}', '${product.cloudinaryPublicId}')">Delete</button>
-        </div>
-      `;
+      <div class="element-data">
+      <img src="${product.productImage}" class="element-img">
+      <div class="element-name">${product.productName}</div>
+      <p class="element-text">Діагональ: <span class="element-volume">${product.productDiagonal}</span></p> 
+      <p class="element-text">Розмір матриці: <span class="element-material">${product.productMatrix}</span></p>
+      <p class="element-text">Формат зображення: <span class="element-material">${product.productFormat}</span></p> 
+      <p class="element-text">Інтерфейс: <span class="element-material">${product.productInterf}</span></p>  
+    </div>
+    <div class="element-footer">
+      <button class="edit-button" onclick="modifyModalToEdit('${product._id}', '${product.productName}', '${product.productDiagonal}', '${product.productFormat}', '${product.productMatrix}', '${product.productInterf}', '${product.productImage}', '${product.cloudinaryPublicId}')">Edit</button><span> </span>
+      <button class="delete-button" onclick="removeProduct('${product._id}', '${product.cloudinaryPublicId}')">Delete</button>
+    </div>
+  `;
       dataContainer.appendChild(productCard);
     });
   } else {

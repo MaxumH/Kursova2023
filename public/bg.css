@@ -9,11 +9,11 @@ body {
 }
 
 .menu {
-	background: #e869ce; /* Замініть на ваш бажаний колір фону */
+	background: firebrick; 
 }
 
 .workmenu {
-	background: #ffffff; /* Замініть на ваш бажаний колір фону */
+	background: #ffffff; 
 }
 
 .dataContainer {

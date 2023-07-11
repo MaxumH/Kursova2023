@@ -11,13 +11,19 @@ const app = express();
 const PORT = 3000;
 
 cloudinary.config({ 
-  cloud_name: 'dgv5poatw', 
-  api_key: '394174933848776', 
-  api_secret: 'RCArttMmUlKYwE2DSEsm7ehwxuI' 
+  cloud_name: 'dxsbqj6z1', 
+  api_key: '126648962619959', 
+  api_secret: 'xQreV9uE75MKIEG3HGz7ve0sP1Q' 
 });
 
+const destFolder = "monitors";
+const options = {
+  use_filename: true,
+  overwrite: false,
+  folder: destFolder
+};
 
-const mongoDB = "mongodb+srv://dimitriysereda:5sgtxnARHoKSpFSz@cluster0.3p4hhmt.mongodb.net/?retryWrites=true&w=majority";
+const mongoDB = "mongodb+srv://db_user:dIwFUTTmvkTei4yK@cluster0.qbru6uc.mongodb.net/monitors?retryWrites=true&w=majority";
 mongoose.connect(mongoDB, { useNewUrlParser: true, useUnifiedTopology: true })
   .then(() => {
     console.log("З'єднання з БД встановлено");
@@ -32,7 +38,6 @@ app.listen(PORT, (error) => {
   error ? console.log(error) : console.log(`Сервер запущено на порту ${PORT}`);
 });
 
-// Отримання всіх продуктів
 app.get("/products", (req, res) => {
   Product.find({})
     .then((products) => {
@@ -44,7 +49,6 @@ app.get("/products", (req, res) => {
     });
 });
 
-// Видалення продукту
 app.delete("/products/:id", (req, res) => {
   const productId = req.params.id;
 
@@ -54,7 +58,6 @@ app.delete("/products/:id", (req, res) => {
         return res.status(404).send("Продукт не знайдено");
       }
 
-      // Видалення зображення з Cloudinary
       cloudinary.uploader.destroy(product.cloudinaryPublicId, { invalidate: true }, (error, result) => {
         if (error) {
           console.log(error);
@@ -69,12 +72,11 @@ app.delete("/products/:id", (req, res) => {
     });
 });
 
-// Оновлення або створення продукту
 app.post("/products", (req, res) => {
   const form = formidable({
     multiples: true,
     keepExtensions: true,
-    uploadDir: __dirname + '/uploads' // Задайте каталог для збереження завантажених файлів
+    uploadDir: __dirname + '/uploads'
   });
 
   form.parse(req, async (err, fields, files) => {
@@ -87,15 +89,15 @@ app.post("/products", (req, res) => {
       });
     }
 
-    const { productId, productName, producttechno, productformat, productspeed, productresurs, oldCloudinaryPublicId, oldImagePath } = fields;
+    const { productId, productName, productDiagonal, productMatrix, productFormat, productInterf, oldCloudinaryPublicId, oldImagePath } = fields;
     const { productImage } = files;
 
     const productInfo = {
       productName,
-      producttechno,
-      productformat,
-      productspeed,
-      productresurs,
+      productDiagonal,
+      productMatrix,
+      productFormat,
+      productInterf,
     };
 
     if (!productImage.originalFilename) {
@@ -104,8 +106,13 @@ app.post("/products", (req, res) => {
       saveDataToDB(productId, productInfo, res);
     } else {
       const getImagePath = productImage.filepath;
-      cloudinary.uploader.upload(getImagePath)
+      cloudinary.uploader.upload(getImagePath, options)
         .then(image => {
+          fs.unlink(getImagePath, (err) => {
+            if (err) {
+              console.error(err);
+            }
+          });
           productInfo.productImage = image.url;
           productInfo.cloudinaryPublicId = image.public_id;
           saveDataToDB(productId, productInfo, res);
@@ -118,7 +125,6 @@ app.post("/products", (req, res) => {
   });
 });
 
-// Отримання списку продуктів
 router.get("/list", (req, res) => {
   Product.find((err, docs) => {
     if (!err) {
@@ -129,7 +135,6 @@ router.get("/list", (req, res) => {
   });
 });
 
-// Видалення продукту
 router.delete("/:id", (req, res) => {
   const productId = req.params.id;
   cloudinary.uploader.destroy(req.body.cloudinaryPublicId);
@@ -143,9 +148,7 @@ router.delete("/:id", (req, res) => {
 });
 
 function saveDataToDB(productId, data, res) {
-  // Перевіряємо чи створювати новий запис в БД, чи оновлювати наявний
   if (productId == "") {
-    // Створюємо новий запис БД
     Product.create(data)
       .then(() => {
         res.sendStatus(200);
@@ -155,7 +158,6 @@ function saveDataToDB(productId, data, res) {
         res.status(500).send("Помилка при збереженні продукту");
       });
   } else {
-    // Оновлюємо наявний запис БД
     Product.findByIdAndUpdate(productId, data)
       .then(() => {
         res.sendStatus(200);

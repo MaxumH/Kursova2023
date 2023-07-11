@@ -23,7 +23,7 @@
     user-select: none;
 }
 .Manage-nas{
-    font-family:  cursive;
+    /* font-family:  cursive; */
     font-size: 30px;
     -moz-user-select: -moz-none;
     -o-user-select: none;
@@ -32,7 +32,7 @@
     user-select: none;
 }
 .sort-text{
-    font-family:  cursive;
+    /* font-family:  cursive; */
     font-size: 30px;
     -moz-user-select: -moz-none;
     -o-user-select: none;

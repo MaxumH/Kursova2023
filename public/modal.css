@@ -53,7 +53,7 @@
     background: linear-gradient(-45deg, #ca2987, #3ccde7, #8e23d5, #23d579);
     background-size: 400% 400%;
     animation: gradient 8s ease infinite;
-    font-family: 'Kablammo', cursive;
+    /* font-family: 'Kablammo', cursive; */
     z-index: 2;
 }
 
@@ -96,7 +96,7 @@
 
 /* Змінені стилі для шрифтів та кольорів */
 body {
-    font-family: Arial, sans-serif;
+    font-family: Arial;
     color: #333;
 }
 

@@ -4,25 +4,25 @@ const productSchema = new mongoose.Schema({
     productName: {
         type: String
     },
-    producttechno: {
+    productDiagonal: {
         type: String
     },
-    productformat: {
+    productMatrix: {
         type: String
     },
-    productspeed: {
+    productFormat: {
         type: String
     },
-    productresurs: {
-        type: String
-        },
-        productImage: {
-            type:String
-        },
+    productInterf: {
+    type: String
+    },
+    productImage: {
+        type:String
+    },
     cloudinaryPublicId: {
         type:String
     }
 });
 
-const ProductModel = mongoose.model('ProductModel', productSchema)
-module.exports = ProductModel
+const ProductModel = mongoose.model('ProductModel', productSchema, "monitorProducts");
+module.exports = ProductModel;

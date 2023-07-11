@@ -5,7 +5,7 @@
 
 .nameshop {
     font-size: 50px;
-    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-family: Verdana, Geneva, Tahoma;
     -moz-user-select: -moz-none;
     -o-user-select: none;
     -khtml-user-select: none;
@@ -24,51 +24,6 @@
     grid-column: col 1 / col 4;
     justify-content: flex-end;
 }
-/* @keyframes move {
-    0% {
-        color: black;
-    }
-
-    10% {
-        color: #9500ba;
-    }
-
-    20% {
-        color: #5006b8;
-    }
-
-    30% {
-        color: #0656b8;
-    }
-
-    40% {
-        color: #06b8af;
-    }
-
-    50% {
-        color: #0dbd56;
-    }
-
-    60% {
-        color: #ccdb2a;
-    }
-
-    70% {
-        color: #cc8f14;
-    }
-
-    80% {
-        color: #d91b0d;
-    }
-
-    90% {
-        color: #73150e;
-    }
-
-    100% {
-        color: #360909;
-    }
-} */
 
 .menu {
     display: flex;
